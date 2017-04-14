@@ -1,6 +1,8 @@
 'use strict';
 
 const pgs = require('pg-stats');
+const schema = require('./schema');
+const bq = require('./bq');
 
 exports.handler = (event, content, callback) => {
   const cn = process.env.PG_CONNECT_STRING
@@ -9,8 +11,13 @@ exports.handler = (event, content, callback) => {
   }
 
   pgs(cn).then(results => {
-    callback(null, results);
+    const key = Object.keys(results)[0];
+    return bq(results[key], schema(key)).then(data => {
+      return callback(null, 'success')
+    }).catch(error => {
+      throw error;
+    });
   }).catch(error => {
-    callback(error, 'error');
+    return callback(error, 'error');
   });
 }
