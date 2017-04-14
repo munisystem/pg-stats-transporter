@@ -11,7 +11,8 @@ const stats_schema = {
   "pg_stat_sys_indexes": "relid:integer,indexrelid:integer,schemaname:string,relname:string,indexrelname:string,idx_scan:integer,idx_tup_read:integer,idx_tup_fetch:integer",
   "pg_statio_sys_tables": "relid:integer,schemaname:string,relname:string,heap_blks_read:integer,heap_blks_hit:integer,idx_blks_read:integer,idx_blks_hit:integer,toast_blks_read:integer,toast_blks_hit:integer,tidx_blks_read:integer,tidx_blks_hit:integer",
   "pg_statio_sys_indexes": "relid:integer,indexrelid:integer,schemaname:string,relname:string,indexrelname:string,idx_blks_read:integer,idx_blks_hit:integer",
-  "pg_stat_all_tables": "relid:integer,schemaname:string,relname:string,seq_scan:integer,seq_tup_read:integer,idx_scan:integer,idx_tup_fetch:integer,n_tup_ins:integer,n_tup_upd:integer,n_tup_del:integer,n_tup_hot_upd:integer,n_live_tup:integer,n_dead_tup:integer,n_mod_since_analyze:integer,last_vacuum:timestamp,last_autovacuum:timestamp,last_analyze:timestamp,last_autoanalyze:timestamp,vacuum_count:integer,autovacuum_count:integer,analyze_count:integer,autoanalyze_count:integer"
+  "pg_stat_all_tables": "relid:integer,schemaname:string,relname:string,seq_scan:integer,seq_tup_read:integer,idx_scan:integer,idx_tup_fetch:integer,n_tup_ins:integer,n_tup_upd:integer,n_tup_del:integer,n_tup_hot_upd:integer,n_live_tup:integer,n_dead_tup:integer,n_mod_since_analyze:integer,last_vacuum:timestamp,last_autovacuum:timestamp,last_analyze:timestamp,last_autoanalyze:timestamp,vacuum_count:integer,autovacuum_count:integer,analyze_count:integer,autoanalyze_count:integer",
+  "pg_stat_all_indexes": "relid:integer,indexrelid:integer,schemaname:string,relname:string,indexrelname:string,idx_scan:integer,idx_tup_read:integer,idx_tup_fetch:integer"
 }
 
 module.exports = (stat) =>  {
