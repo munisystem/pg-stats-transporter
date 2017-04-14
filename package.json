@@ -17,6 +17,8 @@
     "babel-preset-es2015": "^6.24.1"
   },
   "dependencies": {
+    "@google-cloud/bigquery": "^0.9.1",
+    "moment": "^2.18.1",
     "pg-stats": "^0.1.1"
   }
 }
