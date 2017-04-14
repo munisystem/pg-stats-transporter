@@ -7,7 +7,7 @@ var client = null;
 
 module.exports = (data, suffix, schema) => {
   try {
-    init();
+    init(suffix);
   }
   catch(error) {
     return Promise.reject(error);
@@ -24,7 +24,7 @@ module.exports = (data, suffix, schema) => {
   });
 }
 
-function init() {
+function init(suffix) {
   const tableBase = process.env.BQ_TABLE_BASE_NAME
   if (typeof tableBase === 'undefined') throw new Error('You have to export table base name to "BQ_TABLE_BASE_NAME"');
 
