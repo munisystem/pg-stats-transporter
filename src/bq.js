@@ -5,7 +5,7 @@ const fs = require('fs');
 var config = null;
 var client = null;
 
-module.exports = (data, schema) => {
+module.exports = (data, suffix, schema) => {
   try {
     init();
   }
@@ -31,7 +31,7 @@ function init() {
   config = {
     projectId: process.env.BQ_PROJECT_ID,
     dataset: process.env.BQ_DATASET_NAME,
-    table: tableBase.replace(/-/g, "_") + moment().format('YYYYMMDDHH'),
+    table: tableBase.replace(/-/g, "_") + "_" + suffix + moment().format('YYYYMMDDHH'),
     keyFilename: './secret.json'
   }
 
@@ -77,7 +77,6 @@ function table(schema) {
 function insert(data, schema) {
   return table(schema).then(table => {
     while(data.length > 0) {
-      console.log(data);
       table.insert(data.slice(0, 300)).then(() => {}).catch(error => {
         throw error;
       });
