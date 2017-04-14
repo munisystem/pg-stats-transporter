@@ -1,0 +1,19 @@
+{
+  "name": "pg_stats_transporter",
+  "version": "0.0.1",
+  "description": "AWS Lambda function of transporting PostgreSQL stats information to BQ",
+  "main": "lib/index.js",
+  "scripts": {
+    "watch": "babel ./src/ --watch -d ./lib/ --source-maps inline",
+    "local-run": "node lambdaDriver.js",
+    "build:babel": "babel ./src/ -d ./lib/",
+    "build:zip": "zip -r ./app.zip ./lib/ ./node_modules/ ./secret.json",
+    "build": "npm run build:babel && npm run build:zip"
+  },
+  "author": "munisystem <munisystem@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1"
+  }
+}
