@@ -11,7 +11,7 @@ exports.handler = (event, content, callback) => {
   }
 
   pgs(cn).then(results => {
-    const key = Object.keys(results)[0];
+    const key = Object.keys(results)[1];
     return bq(results[key], schema(key)).then(data => {
       return callback(null, 'success')
     }).catch(error => {
