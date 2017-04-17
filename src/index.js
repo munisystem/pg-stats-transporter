@@ -1,5 +1,7 @@
 'use strict';
 
+const delay = require('delay');
+
 const pgs = require('pg-stats');
 const schema = require('./schema');
 const bq = require('./bq');
@@ -10,14 +12,23 @@ exports.handler = (event, content, callback) => {
     return callback(new Error(`Don't export PostgreSQL connect string like "postgres://user:password@host:port/database" to "PG_CONNECT_STRING"`), 'error');
   }
 
-  pgs(cn).then(results => {
-    const key = Object.keys(results)[2];
-    return bq(results[key], key, schema(key)).then(data => {
-      return callback(null, 'success')
-    }).catch(error => {
-      throw error;
-    });
-  }).catch(error => {
-    return callback(error, 'error');
-  });
+  return insertBQ(cn)
+}
+
+async function insertBQ(cn) {
+  try {
+    const results = await pgs(cn)
+    for (const key of Object.keys(results)) {
+      console.log('Insert: ' + key);
+      const v = results[key];
+      if (v.length === 0) {
+        continue;
+      }
+      await bq(v, key, schema(key));
+      await delay(1000);
+    }
+    return callback()
+  } catch(error) {
+    throw error;
+  }
 }
